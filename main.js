@@ -4,6 +4,7 @@ let knucclesCounter = 0;
 const imgNumber = 250;
 const popDelay = 30;
 let hueRotateValue = 0;
+let newTopPosition, newLeftPosition;
 
 document.body.style.cursor = "not-allowed"
 const newKnuccles = setInterval(() => {
@@ -26,8 +27,21 @@ const newKnuccles = setInterval(() => {
 
         allKuccles.forEach(knuccles => {
             knuccles.addEventListener('mouseover', e => {
-                knuccles.style.top = Math.floor(Math.random() * 120 - 10) + '%'
-                knuccles.style.left = Math.floor(Math.random() * 120 - 10) + '%'
+                // new top position calc
+                if(Math.floor(Math.random() * 2) == 1){
+                    newTopPosition = parseInt(knuccles.style.top.replace('%', '')) - 10 > -10 ? parseInt(knuccles.style.top.replace('%', '')) - 10 : -10;
+                } else {
+                    newTopPosition = parseInt(knuccles.style.top.replace('%', '')) + 10 < 110 ? parseInt(knuccles.style.top.replace('%', '')) + 10 : 110;
+                }
+
+                if(Math.floor(Math.random() * 2) == 1){
+                    newLeftPosition = parseInt(knuccles.style.left.replace('%', '')) - 10 > -10 ? parseInt(knuccles.style.left.replace('%', '')) - 10 : -10;
+                } else {
+                    newLeftPosition = parseInt(knuccles.style.left.replace('%', '')) + 10 < 110 ? parseInt(knuccles.style.left.replace('%', '')) + 10 : 110;
+                }
+
+                knuccles.style.top = newTopPosition + '%'
+                knuccles.style.left = newLeftPosition + '%'
                 knuccles.style.filter = `hue-rotate(${hueRotateValue}deg)`
                 hueRotateValue += 5;
             })      
